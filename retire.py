@@ -55,25 +55,25 @@ def main():
     )
 
     # App title and description
-    st.title("💼 Professional Retirement Savings Calculator")
+    st.title("💼 Retirement Savings Calculator")
     st.write("Plan your retirement with confidence. Enter your details below to get started.")
 
     # Inputs for monthly and annual expenses
     st.header("🛠️ Expenses")
-    hme = st.number_input("House Monthly Expenses (Rent, Mortgage, Maintenance, Utilities, Insurance)", min_value=0, value=2000)
-    mle = st.number_input("Monthly Living Expenses (Food, Groceries)", min_value=0, value=1000)
-    go = st.number_input("Going Out Monthly Expenses (Dinner, Drinks, Socialization)", min_value=0, value=500)
-    ve = st.number_input("Vacation Expenses Per Year", min_value=0, value=5000)
-    gm = st.number_input("Golf Membership and Outing Expenses Per Year", min_value=0, value=3000)
-    fme = st.number_input("Family Monthly Expenses (Gifts for Kids, Grandkids)", min_value=0, value=300)
-    ee = st.number_input("Emergency Expenses Per Year", min_value=0, value=2000)
-    hce = st.number_input("Monthly Healthcare Expenses", min_value=0, value=600)
+    hme = st.number_input("House Monthly Expenses (Rent, Mortgage, Maintenance, Utilities, Insurance)", min_value=0, value=7000)
+    mle = st.number_input("Monthly Living Expenses (Food, Groceries)", min_value=0, value=2000)
+    go = st.number_input("Going Out Monthly Expenses (Dinner, Drinks, Socialization)", min_value=0, value=1500)
+    ve = st.number_input("Vacation Expenses Per Year", min_value=0, value=10000)
+    gm = st.number_input("Golf Membership and Outing Expenses Per Year", min_value=0, value=25000)
+    fme = st.number_input("Family Monthly Expenses (Gifts for Kids, Grandkids)", min_value=0, value=500)
+    ee = st.number_input("Emergency Expenses Per Year", min_value=0, value=5000)
+    hce = st.number_input("Monthly Healthcare Expenses", min_value=0, value=2000)
 
     # Inputs for personal details
     st.header("👤 Personal Details")
-    a = st.number_input("Current Age", min_value=0, value=40)
-    r = st.number_input("Retirement Age", min_value=0, value=65)
-    le = st.number_input("Life Expectancy (Age)", min_value=0, value=90)
+    a = st.number_input("Current Age", min_value=0, value=50)
+    r = st.number_input("Retirement Age", min_value=0, value=60)
+    le = st.number_input("Life Expectancy (Age)", min_value=0, value=85)
 
     # Error checking for retirement age and life expectancy
     if r <= a:
@@ -87,7 +87,7 @@ def main():
 
     # Inputs for financial assumptions
     st.header("📊 Financial Assumptions")
-    i = st.slider("Annual Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.0) / 100
+    i = st.slider("Annual Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.5) / 100
     r_rate = st.slider("Annual Investment Return Rate (%)", min_value=0.0, max_value=10.0, value=5.0) / 100
 
     # Calculate the retirement savings
