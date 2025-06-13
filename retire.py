@@ -1,5 +1,8 @@
 import streamlit as st
 import logging
+from fpdf import FPDF
+import re
+import os
 
 # Configure logging
 logging.basicConfig(
@@ -8,9 +11,18 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
+# Function to validate email
+def is_valid_email(email):
+    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    return re.match(email_regex, email) is not None
+
 # Function to calculate total retirement savings needed
 def calculate_retirement_savings(hme, mle, go, ve, gm, fme, ee, hce, a, r, le, i, r_rate):
     try:
+        # Validate inputs
+        if any(x < 0 for x in [hme, mle, go, ve, gm, fme, ee, hce, a, r, le, i, r_rate]):
+            raise ValueError("Inputs must be non-negative.")
+
         # Calculate total annual expenses
         annual_expenses = 12 * (hme + mle + go + fme + hce) + ve + gm + ee
 
@@ -37,15 +49,18 @@ def calculate_retirement_savings(hme, mle, go, ve, gm, fme, ee, hce, a, r, le, i
 
         return total_savings
 
+    except ValueError as ve:
+        st.error(f"Input error: {ve}")
+        logging.error(f"Input validation error: {ve}")
+        return None
     except Exception as e:
-        st.error("An error occurred during the calculation. Please check your inputs.")
+        st.error("An unexpected error occurred during the calculation. Please check your inputs.")
         logging.error(f"Error during calculation: {e}")
         return None
 
-
 # Streamlit App
 def main():
-    # Add a sidebar for navigation and branding
+    # Sidebar for branding and navigation
     st.sidebar.title("Retirement Calculator")
     st.sidebar.info(
         """
@@ -55,7 +70,7 @@ def main():
     )
 
     # App title and description
-    st.title("💼 Retirement Savings Calculator")
+    st.title("💼 Professional Retirement Savings Calculator")
     st.write("Plan your retirement with confidence. Enter your details below to get started.")
 
     # Inputs for monthly and annual expenses
@@ -87,7 +102,7 @@ def main():
 
     # Inputs for financial assumptions
     st.header("📊 Financial Assumptions")
-    i = st.slider("Annual Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.5) / 100
+    i = st.slider("Annual Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.0) / 100
     r_rate = st.slider("Annual Investment Return Rate (%)", min_value=0.0, max_value=10.0, value=5.0) / 100
 
     # Calculate the retirement savings
@@ -107,10 +122,11 @@ def main():
         """
         **Professional Retirement Calculator**  
         Built with 💻 by [Rajesh Arora].  
-        For feedback or support, contact us at [rajesh.arora@gmail.com].
+        For feedback or support, contact me at [rajesh.arora@gmail.com].
+
+        **Disclaimer:** This tool provides estimates based on the inputs provided. For personalized financial advice, consult a certified financial advisor.
         """
     )
-
 
 # Run the app
 if __name__ == "__main__":
