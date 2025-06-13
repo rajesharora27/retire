@@ -1,6 +1,5 @@
 import streamlit as st
 import logging
-from fpdf import FPDF
 import re
 import os
 
