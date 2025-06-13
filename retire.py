@@ -70,11 +70,22 @@ def main():
     )
 
     # App title and description
-    st.title("💼 Professional Retirement Savings Calculator")
+    st.title("💼 Retirement Savings Calculator")
     st.write("Plan your retirement with confidence. Enter your details below to get started.")
 
     # Inputs for monthly and annual expenses
     st.header("🛠️ Expenses")
+    st.markdown(
+        """
+        <style>
+        .stNumberInput > label {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     hme = st.number_input("House Monthly Expenses (Rent, Mortgage, Maintenance, Utilities, Insurance)", min_value=0, value=7000)
     mle = st.number_input("Monthly Living Expenses (Food, Groceries)", min_value=0, value=2000)
     go = st.number_input("Going Out Monthly Expenses (Dinner, Drinks, Socialization)", min_value=0, value=1500)
@@ -120,7 +131,7 @@ def main():
     st.markdown("---")
     st.markdown(
         """
-        **Professional Retirement Calculator**  
+        **Retirement Calculator**  
         Built with 💻 by [Rajesh Arora].  
         For feedback or support, contact me at [rajesh.arora@gmail.com].
 
